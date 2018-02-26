@@ -9,8 +9,10 @@
   <body class="container">
   <h1>Welcome to Tony hair salon</h1>
   <hr>
-<ul>
-  <li></li>
-</ul>
+    <ul>
+      @foreach(var stylist in Model) {
+        <li>@stylist.GetId(): @stylist.GetName()</li>
+      }
+    </ul>
 </body>
 </html>

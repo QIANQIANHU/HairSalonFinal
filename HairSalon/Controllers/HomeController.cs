@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-// using HairSalon.Models;
+using HairSalon.Models;
 using System.Collections.Generic;
 using System;
 
@@ -16,13 +16,25 @@ namespace HairSalon.Controllers
     [HttpGet("/StylistList")]
     public ActionResult StylistList()
     {
-      return View();
+      List<Stylist> allStylists = Stylist.GetAll();
+      return View(allStylists);
     }
 
-    [HttpGet("/AddStylists")]
-    public ActionResult AddStylists()
+    [HttpGet("/InsertStylist")]
+    public ActionResult InsertStylist()
     {
       return View("AddStylists");
+    }
+
+    [HttpPost("/AddStylists")]
+    public ActionResult AddStylists()
+    {
+      string stylistName = Request.Form[("stylist")];
+      Stylist stylist = new Stylist(stylistName);
+      Console.WriteLine("New stylist name is: " + stylist.GetName());
+      stylist.Save(); //save to DB
+      List<Stylist> allStylists = Stylist.GetAll(); //retrieve stylists from DB again
+      return View("StylistList", allStylists);
     }
 
     [HttpGet("/AddCustomers")]
