@@ -15,10 +15,10 @@ This webpage will help employee manage data of stylists and customers.
 * Ensure our MAMP server is running;
 * Run Terminal command $ /Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot;/
 * Check the Apache Server and MySQL Sever checkboxes in the upper-left corner of the MAMP window.
-⋅⋅* CREATE DATABASE qianqian_hu;
-⋅⋅* USE qianqian_hu;
-⋅⋅* CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255));
-⋅⋅* CREATE TABLE customers (id serial PRIMARY KEY, description VARCHAR(255));
+- CREATE DATABASE qianqian_hu;
+- USE qianqian_hu;
+- CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255));
+- CREATE TABLE customers (id serial PRIMARY KEY, description VARCHAR(255));
 
 * Run with "dotnet run" command line on your Terminal;
 * Copy and paste the link(http://localhost:5000) to your browser.
