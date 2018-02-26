@@ -43,11 +43,31 @@ namespace HairSalon.Controllers
       return View("AddCustomers");
     }
 
-    [HttpGet("/StylistDetails")]
-    public ActionResult StylistDetails()
+    [HttpPost("/AddCustomers")]
+    public ActionResult CustomerAddedSuccess()
     {
-      return View("StylistDetails");
+      string customerName = Request.Form[("customer")];
+      string stylistName = Request.Form[("assignedStylist")];
+      Stylist foundStylist = Stylist.FindByStylistName(stylistName); // find a stylist by its stylist's name
+
+      if (foundStylist.GetId() == 0) {
+        return View("CustomerAddedFail");
+      }
+
+      Customer customer = new Customer(customerName, foundStylist.GetId()); // construct a new customer instance
+      customer.Save(); // persist to DB
+      return View("CustomerAddedSuccess", customer);
     }
+
+    [HttpGet("/StylistDetails/{id}")]
+    public ActionResult StylistDetails(int id)
+    {
+      Stylist stylist = Stylist.Find(id);
+      List<Customer> customers = Customer.FindByStylistId(stylist.GetId());
+      stylist.SetCustomers(customers);
+      return View("StylistDetails", stylist);
+    }
+
     // [HttpPost("/Result")]
     // public ActionResult Result()
     // {

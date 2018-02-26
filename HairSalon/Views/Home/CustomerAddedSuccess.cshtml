@@ -4,17 +4,13 @@
     <meta charset="utf-8">
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
     <link rel="stylesheet" type="text/css" href="~/css/styles.css" />
-    <title>Stylist Details</title>
+    <title>Customer added successful</title>
   </head>
   <body class="container">
-  <h1>Details about the stylist: @Model.GetName()</h1>
+  <h1>Thank you</h1>
   <hr>
-  <h3>Serve Customers:</h3>
-    <ul>
-      @foreach(var customer in Model.GetCustomers()) {
-        <li>Customer Name: @customer.GetName()</li>
-      }
-    </ul>
+  <h3>New customer "@Model.GetName()" assigned to stylist id: @Model.GetStylistId() successful.</h3>
+  <hr>
   <form action="/">
     <input type="submit" value="Go home" />
   </form>

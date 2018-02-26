@@ -11,8 +11,11 @@
   <hr>
     <ul>
       @foreach(var stylist in Model) {
-        <li>@stylist.GetId(): @stylist.GetName()</li>
+        <li>Id: @stylist.GetId(); Name: <a href="/StylistDetails/@stylist.GetId()">@stylist.GetName()</a></li>
       }
     </ul>
+  <form action="/">
+    <input type="submit" value="Go home" />
+  </form>
 </body>
 </html>
