@@ -2,7 +2,7 @@
 
 #### This is a WebPage to display stylists to customers and help employee's management.
 
-#### By Qianqian Hu
+#### By Qianqian Hu on 2018/01/25
 
 ## Description
 
@@ -21,7 +21,8 @@ This webpage will help employee manage data of stylists and customers.
     - CREATE TABLE customers (id serial PRIMARY KEY, description VARCHAR(255));
 
 * Run with "dotnet run" command line on your Terminal;
-* Copy and paste the link(http://localhost:5000) to your browser.
+* Copy and paste the link(http://localhost:5000) to your browser;
+* Note: uploaded DBs are in zipped compression format.
 
 ## Technologies Used
 
