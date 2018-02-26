@@ -6,7 +6,6 @@ using System;
 namespace HairSalon.Models
 {
     public class Stylist
-
     {
         private string _name;
         private int _id;
@@ -19,23 +18,23 @@ namespace HairSalon.Models
             _customers = new List<Customer> {};
         }
 
-        // public override bool Equals(System.Object otherStylist)
-        // {
-        //     if (!(otherStylist is Stylist))
-        //     {
-        //         return false;
-        //     }
-        //     else
-        //     {
-        //         Stylist newStylist = (Stylist) otherStylist;
-        //         return this.GetId().Equals(newStylist.GetId());
-        //     }
-        // } //for future test to compare two instance
-        //
-        // public override int GetHashCode()
-        // {
-        //     return this.GetId().GetHashCode();
-        // }//for future test to compare two instance
+        public override bool Equals(System.Object otherStylist)
+        {
+            if (!(otherStylist is Stylist))
+            {
+                return false;
+            }
+            else
+            {
+                Stylist newStylist = (Stylist) otherStylist;
+                return this.GetId().Equals(newStylist.GetId()) && this.GetName().Equals(newStylist.GetName());
+            }
+        } //for future test to compare two instance
+
+        public override int GetHashCode()
+        {
+            return this.GetId().GetHashCode();
+        } //for future test to compare two instance
 
         public string GetName()
         {
@@ -165,18 +164,18 @@ namespace HairSalon.Models
             return newStylist;
         }
 
-        // public static void DeleteAll()
-        // {
-        //     MySqlConnection conn = DB.Connection();
-        //     conn.Open();
-        //     var cmd = conn.CreateCommand() as MySqlCommand;
-        //     cmd.CommandText = @"DELETE FROM categories;";
-        //     cmd.ExecuteNonQuery();
-        //     conn.Close();
-        //     if (conn != null)
-        //     {
-        //         conn.Dispose();
-        //     }
-        // }
+        public static void DeleteAll()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM stylists;";
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
     }
 }

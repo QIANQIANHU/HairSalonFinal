@@ -17,35 +17,30 @@ namespace HairSalon.Models
             _stylistId = stylistId;
         }
 
-        // public override bool Equals(System.Object otherCustomer
-        // )
-        // {
-        //   if (!(otherCustomer
-        //    is Customer
-        //    ))
-        //   {
-        //     return false;
-        //   }
-        //   else
-        //   {
-        //      Customer
-        //       newCustomer
-        //        = (Customer
-        //        ) otherCustomer
-        //        ;
-        //      bool idEquality = this.GetId() == newCustomer
-        //      .GetId();
-        //      bool stylistedIdEquality = this.GetDescription() == newCustomer
-        //      .GetDescription();
-        //      bool categoryEquality = this.GetCategoryId() == newCustomer
-        //      .GetCategoryId();
-        //      return (idEquality && stylistedIdEquality && categoryEquality);
-        //    }
-        // }
-        // public override int GetHashCode()
-        // {
-        //      return this.GetDescription().GetHashCode();
-        // }
+        public override bool Equals(System.Object otherCustomer
+        )
+        {
+          if (!(otherCustomer is Customer))
+          {
+            return false;
+          }
+          else
+          {
+             Customer newCustomer = (Customer) otherCustomer;
+             // Console.WriteLine(this.GetName());
+             // Console.WriteLine(newCustomer.GetName());
+             // Console.WriteLine(this.GetStylistId());
+             // Console.WriteLine(newCustomer.GetStylistId());
+             bool nameEquality = this.GetName() == newCustomer.GetName();
+             bool stylistIdEquality = this.GetStylistId() == newCustomer.GetStylistId();
+             return (nameEquality && stylistIdEquality);
+           }
+        }
+
+        public override int GetHashCode()
+        {
+             return this.GetId().GetHashCode();
+        }
 
         public string GetName()
         {
@@ -121,55 +116,18 @@ namespace HairSalon.Models
             return allCustomers;
         }
 
-        // public static Customer
-        //  Find(int id)
-        // {
-        //     MySqlConnection conn = DB.Connection();
-        //     conn.Open();
-        //     var cmd = conn.CreateCommand() as MySqlCommand;
-        //     cmd.CommandText = @"SELECT * FROM items WHERE id = (@searchId);";
-        //
-        //     MySqlParameter searchId = new MySqlParameter();
-        //     searchId.ParameterName = "@searchId";
-        //     searchId.Value = id;
-        //     cmd.Parameters.Add(searchId);
-        //
-        //     var rdr = cmd.ExecuteReader() as MySqlDataReader;
-        //     int itemId = 0;
-        //     string itemName = "";
-        //     int itemCategoryId = 0;
-        //
-        //     while(rdr.Read())
-        //     {
-        //       itemId = rdr.GetInt32(0);
-        //       itemName = rdr.GetString(1);
-        //       itemCategoryId = rdr.GetInt32(2);
-        //     }
-        //     Customer
-        //      newCustomer
-        //       = new Customer
-        //       (itemName, itemCategoryId, itemId);
-        //     conn.Close();
-        //     if (conn != null)
-        //     {
-        //         conn.Dispose();
-        //     }
-        //     return newCustomer
-        //     ;
-        // }
-
-        // public static void DeleteAll()
-        // {
-        //     MySqlConnection conn = DB.Connection();
-        //     conn.Open();
-        //     var cmd = conn.CreateCommand() as MySqlCommand;
-        //     cmd.CommandText = @"DELETE FROM items;";
-        //     cmd.ExecuteNonQuery();
-        //     conn.Close();
-        //     if (conn != null)
-        //     {
-        //         conn.Dispose();
-        //     }
-        // }
+        public static void DeleteAll()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM customers;";
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
     }
 }
