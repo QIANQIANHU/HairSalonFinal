@@ -1,0 +1,49 @@
+@using HairSalon.Models;
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href="~/css/styles.css" />
+    <title>Update</title>
+  </head>
+  <body class="container">
+  <h1>Details about the stylist: @Model["selectedStylist"].GetName()</h1>
+  <hr>
+  <h3>Serve Customers:</h3>
+  <br>
+  <ul>
+    @foreach (var customer in @Model["allCustomers"])
+    {
+        <li>@customer.GetName()</li>
+    }
+  </ul>
+  <hr>
+  <h3>Mastered Specialties:<h3>
+  <br>
+  <ul>
+    @foreach (var specialty in @Model["stylistSpecialties"])
+    {
+        <li>@specialty.GetName()</li>
+    }
+  </ul>
+  <hr>
+  <h3>Add a specilty to this stylist:</h3>
+
+
+  <form action='/stylists/@Model["selectedStylist"].GetId()/specialties/new' method='post'>
+    <label for='specilty-id'>Select a specilty</label>
+    <select id='specilty-id' name='specilty-id' type='text'>
+      @foreach (var specialty in @Model["allSpecialties"])
+      {
+        <option value='@specialty.GetId()'>@specialty.GetName()</option>
+      }
+    </select>
+  <button type='submit'>Add</button>
+  </form>
+
+  <hr>
+  <a href="/StylistList"><button type='submit' class='btn'>Go back</button></a><br>
+</body>
+</html>

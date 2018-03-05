@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href="~/css/styles.css" />
+    <title>Hair Salon Homepage</title>
+  </head>
+  <body class="container">
+  <h1>Welcome to Tony hair salon</h1>
+  <hr>
+  @if (@Model.Count != 0)
+  {
+    <h3>All Stylists:</h3>
+      <hr>
+      <ul>
+        @foreach(var stylist in Model) {
+          <li>Name: <a href="/StylistDetails/@stylist.GetId()">@stylist.GetName()</a> | <a href="/UpdateStylist/@stylist.GetId()">Edit</a> | <a href="/DeleteStylist/@stylist.GetId()">Delete</a></li>
+          <hr>
+        }
+      </ul>
+  }
+  else
+  {
+    <h3>We don't have any stylists yet, please add!</h3>
+  }
+  <a href="/InsertStylist"><button type='submit' class='btn'>Add stylist</button></a><br>
+  <a href="/DeleteAllStylists"><button type='submit' class='btn'>Delete all stylists</button></a><br>
+  <a href="/"><button type='submit' class='btn'>Go Home</button></a><br>
+</body>
+</html>

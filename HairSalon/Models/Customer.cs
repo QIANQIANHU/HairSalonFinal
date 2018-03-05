@@ -84,6 +84,90 @@ namespace HairSalon.Models
             }
         }
 
+        public static List<Customer> GetAll()
+        {
+            List<Customer> allCustomers = new List<Customer> {};
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM customers;";
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while(rdr.Read())
+            {
+              int customerIdRes = rdr.GetInt32(0);
+              string customerNameRes = rdr.GetString(1);
+              int stylistIdRes = rdr.GetInt32(2);
+              Customer newCustomer = new Customer(customerNameRes, stylistIdRes, customerIdRes);
+              allCustomers.Add(newCustomer);
+            }
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return allCustomers;
+        }
+
+        public static Customer Find(int id)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM customers WHERE id = (@searchId);";
+
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@searchId";
+            searchId.Value = id;
+            cmd.Parameters.Add(searchId);
+
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            int customerIdRes = 0;
+            string customerNameRes = "";
+            int stylistIdRes = 0;
+
+            while(rdr.Read())
+            {
+              customerIdRes = rdr.GetInt32(0);
+              customerNameRes = rdr.GetString(1);
+              stylistIdRes = rdr.GetInt32(2);
+            }
+
+            Customer newCustomer = new Customer(customerNameRes, stylistIdRes, customerIdRes);
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return newCustomer;
+        }
+
+        public void UpdateName(string newName)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"UPDATE customers SET name = @newName WHERE id = @searchId;";
+
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@searchId";
+            searchId.Value = _id;
+            cmd.Parameters.Add(searchId);
+
+            MySqlParameter description = new MySqlParameter();
+            description.ParameterName = "@newName";
+            description.Value = newName;
+            cmd.Parameters.Add(description);
+
+            cmd.ExecuteNonQuery();
+            _name = newName;
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
         public static List<Customer> FindByStylistId(int stylistId)
         {
             List<Customer> allCustomers = new List<Customer> {};
@@ -103,7 +187,7 @@ namespace HairSalon.Models
               int customerIdRes = rdr.GetInt32(0);
               string customerNameRes = rdr.GetString(1);
               int stylistIdRes = rdr.GetInt32(2);
-              Customer newCustomer = new Customer(customerNameRes, customerIdRes, stylistIdRes);
+              Customer newCustomer = new Customer(customerNameRes, stylistIdRes, customerIdRes);
               allCustomers.Add(newCustomer);
             }
 
@@ -122,6 +206,26 @@ namespace HairSalon.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"DELETE FROM customers;";
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public void Delete()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM customers WHERE id = @searchId;";
+
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@searchId";
+            searchId.Value = _id;
+            cmd.Parameters.Add(searchId);
+
             cmd.ExecuteNonQuery();
             conn.Close();
             if (conn != null)
